@@ -1,20 +1,42 @@
-import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
 
-import { AppRoutingModule } from './app-routing-module';
-import { App } from './app';
+
+
+import { InstanceListComponent } from './instance-list/instance-list.component';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { CommonModule } from '@angular/common';
+import {AppComponent} from './app';
+import {AuthGuard} from './guards/auth.guard';
+
+export const routes: Routes = [
+  { path: '', component: WelcomeComponent },
+  { path: 'login', component: LoginFormComponent },
+  {
+    path: 'instances',
+    component: InstanceListComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: '**', redirectTo: '' },
+];
 
 @NgModule({
   declarations: [
-    App
+    AppComponent,
+    LoginFormComponent,
+    InstanceListComponent,
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(routes),
   ],
-  providers: [
-    provideBrowserGlobalErrorListeners()
-  ],
-  bootstrap: [App]
+  providers: [AuthGuard],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

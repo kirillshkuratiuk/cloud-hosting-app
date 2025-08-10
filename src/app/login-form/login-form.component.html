@@ -1,0 +1,29 @@
+<h1>Please Login</h1>
+<form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="login">Login</label>
+        <input type="text"
+               id="login"
+               formControlName="login"
+               required/>
+        <ul class="errors" *ngIf="loginField.invalid && loginField.dirty" [ngSwitch]="true">
+            <li *ngSwitchCase="loginField.hasError('required')">Login is required</li>
+        </ul>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password"
+               id="password"
+               formControlName="password"
+               required/>
+        <ul class="errors" *ngIf="passwordField.invalid && passwordField.dirty" [ngSwitch]="true">
+            <li *ngSwitchCase="passwordField.hasError('required')">Password is required</li>
+        </ul>
+    </div>
+    <div class="form-actions">
+        <button type="submit" [disabled]="!loginForm.valid">Login</button>
+    </div>
+    <div *ngIf="errorMessage" class="error">
+        {{ errorMessage }}
+    </div>
+</form>

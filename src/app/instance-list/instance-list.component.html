@@ -1,0 +1,25 @@
+<h1>Cloud Instances</h1>
+<section role="main">
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>CPU</th>
+            <th>Memory</th>
+            <th>Disk</th>
+            <th>IP Address</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let instance of instances">
+            <td>{{ instance.name }}</td>
+            <td>{{ getStatusText(instance.status) }}</td>
+            <td>{{ instance.cpu }}</td>
+            <td>{{ instance.memory }}</td>
+            <td>{{ instance.disk }}</td>
+            <td>{{ instance.ip_address }}</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
